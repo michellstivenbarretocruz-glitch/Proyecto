@@ -1,0 +1,435 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --background: #080608;
+    --stage: #171016;
+    --text: #f5e9d5;
+    --muted: #b9a99a;
+    --gold: #c9a86a;
+    --curtain-dark: #270b16;
+    --curtain-light: #4b1325;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background: var(--background);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    color: var(--text);
+}
+
+/* =========================
+   TEATRO
+========================= */
+
+.theater {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center 40%,
+            #261b23 0%,
+            #100b10 45%,
+            #050405 100%
+        );
+}
+
+/* =========================
+   ESCENARIO
+========================= */
+
+.stage {
+    position: relative;
+
+    width: min(900px, 85vw);
+    height: min(650px, 80vh);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.015),
+            rgba(0,0,0,0.2)
+        );
+
+    border-top: 2px solid rgba(201,168,106,0.25);
+    border-bottom: 2px solid rgba(201,168,106,0.15);
+
+    box-shadow:
+        0 0 80px rgba(0,0,0,0.8);
+}
+
+/* =========================
+   TEXTO
+========================= */
+
+.title-container {
+    position: relative;
+
+    max-width: 600px;
+
+    text-align: center;
+
+    z-index: 5;
+
+    animation: appear 2.5s ease forwards;
+}
+
+.small-text {
+    margin-bottom: 18px;
+
+    color: var(--gold);
+
+    font-size: 12px;
+
+    letter-spacing: 7px;
+
+    text-transform: uppercase;
+}
+
+h1 {
+    margin-bottom: 20px;
+
+    font-size: clamp(42px, 7vw, 82px);
+
+    font-weight: 400;
+
+    line-height: 1.05;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 3px 20px rgba(0,0,0,0.7);
+}
+
+.subtitle {
+    max-width: 480px;
+
+    margin: 0 auto 45px;
+
+    color: var(--muted);
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+/* =========================
+   BOTÓN
+========================= */
+
+button {
+    padding: 14px 38px;
+
+    border: 1px solid rgba(201,168,106,0.7);
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.4s ease,
+        color 0.4s ease,
+        transform 0.3s ease;
+}
+
+button:hover {
+    background: var(--gold);
+
+    color: #171016;
+
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* =========================
+   TELÓN
+========================= */
+
+.curtain {
+    position: absolute;
+
+    top: 0;
+
+    width: 18vw;
+    min-width: 140px;
+    max-width: 260px;
+
+    height: 100%;
+
+    z-index: 10;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            var(--curtain-dark) 0px,
+            var(--curtain-light) 25px,
+            var(--curtain-dark) 50px
+        );
+
+    box-shadow:
+        0 0 50px rgba(0,0,0,0.9);
+}
+
+.curtain-left {
+    left: 0;
+
+    border-right: 3px solid #5e2434;
+}
+
+.curtain-right {
+    right: 0;
+
+    border-left: 3px solid #5e2434;
+}
+
+/* =========================
+   LUCES
+========================= */
+
+.stage-light {
+    position: absolute;
+
+    top: -10%;
+
+    width: 50vw;
+    height: 70vh;
+
+    pointer-events: none;
+
+    opacity: 0.15;
+
+    filter: blur(20px);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255,220,170,0.8),
+            transparent 65%
+        );
+}
+
+.left-light {
+    left: -25%;
+
+    transform: rotate(15deg);
+}
+
+.right-light {
+    right: -25%;
+
+    transform: rotate(-15deg);
+}
+
+/* =========================
+   TEXTO INFERIOR
+========================= */
+
+.footer-text {
+    position: absolute;
+
+    bottom: 25px;
+
+    display: flex;
+    gap: 12px;
+
+    color: rgba(245,233,213,0.4);
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    .stage {
+        width: 90vw;
+        height: 75vh;
+    }
+
+    .curtain {
+        width: 12vw;
+        min-width: 55px;
+    }
+
+    .small-text {
+        font-size: 9px;
+        letter-spacing: 4px;
+    }
+
+    h1 {
+        font-size: 42px;
+    }
+
+    .subtitle {
+        padding: 0 25px;
+
+        font-size: 15px;
+    }
+
+    button {
+        padding: 13px 30px;
+
+        font-size: 12px;
+    }
+
+}
+
+/* =========================
+   APERTURA DEL TELÓN
+========================= */
+
+.curtain {
+    transition: transform 2s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.opening .curtain-left  { transform: translateX(-105%); }
+.opening .curtain-right { transform: translateX(105%); }
+
+.title-container,
+.footer-text {
+    transition: opacity 1s ease;
+}
+
+.opening .title-container,
+.opening .footer-text {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* =========================
+   INTERLUDIO
+========================= */
+
+.interlude {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 30px;
+    text-align: center;
+
+    background:
+        radial-gradient(circle at center, #1a1219 0%, #080608 80%);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.5s ease, visibility 1.5s;
+}
+
+.interlude.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.poem {
+    max-width: 560px;
+    margin-bottom: 30px;
+}
+
+.verse {
+    margin: 6px 0;
+
+    font-size: clamp(20px, 3.2vw, 30px);
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text);
+
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.poem-author {
+    margin-bottom: 50px;
+
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    opacity: 0;
+}
+
+.interlude button {
+    opacity: 0;
+}
+
+/* Aparición escalonada: cada verso entra 1.4s después del anterior */
+.interlude.visible .verse,
+.interlude.visible .poem-author,
+.interlude.visible button {
+    animation: fadeUp 1.6s ease forwards;
+    animation-delay: calc(var(--i) * 1.4s + 1s);
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

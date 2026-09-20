@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Una pequeña historia</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cafe.css">
+</head>
+
+<body>
+
+    <main class="theater">
+
+        <!-- Luces del escenario -->
+        <div class="stage-light left-light"></div>
+        <div class="stage-light right-light"></div>
+
+        <!-- Telón -->
+        <div class="curtain curtain-left"></div>
+        <div class="curtain curtain-right"></div>
+
+        <!-- Escenario -->
+        <section class="stage">
+
+            <div class="title-container">
+
+                <p class="small-text">
+                    UNA PEQUEÑA HISTORIA
+                </p>
+
+                <h1>
+                    Para dos personas
+                </h1>
+
+                <p class="subtitle">
+                    y todos esos pequeños momentos
+                    que terminaron convirtiéndose en algo más.
+                </p>
+
+                <button id="startButton">
+                    Comenzar
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- Texto inferior -->
+        <div class="footer-text">
+            <span>Acto I</span>
+            <span>•</span>
+            <span>El comienzo</span>
+        </div>
+
+    </main>
+
+    <!-- Interludio -->
+    <section class="interlude" id="interlude" aria-hidden="true">
+
+        <blockquote class="poem">
+            <p class="verse" style="--i:0">Podrá nublarse el sol eternamente;</p>
+            <p class="verse" style="--i:1">podrá secarse en un instante el mar;</p>
+            <p class="verse" style="--i:2">podrá romperse el eje de la tierra</p>
+            <p class="verse" style="--i:3">como un débil cristal.</p>
+            <p class="verse" style="--i:4">¡Todo sucederá! Podrá la muerte</p>
+            <p class="verse" style="--i:5">cubrirme con su fúnebre crespón;</p>
+            <p class="verse" style="--i:6">pero jamás en mí podrá apagarse</p>
+            <p class="verse" style="--i:7">la llama de tu amor.</p>
+        </blockquote>
+
+        <p class="poem-author" style="--i:5">
+            — Gustavo Adolfo Bécquer, <em>Rima XCI</em>
+        </p>
+
+        <button id="continueButton" style="--i:6">
+            Continuar
+        </button>
+
+    </section>
+
+    <!-- Cafetería -->
+    <section class="cafe" id="cafe" aria-hidden="true">
+
+        <div class="cafe-stage" id="cafeStage">
+
+            <img class="scene" src="assets/cafe.png" alt="Dos personas abrazadas en una cafetería con luces cálidas" draggable="false">
+
+            <div class="moonlight" aria-hidden="true"></div>
+
+            <!-- x, y, w, h están en píxeles de la imagen (1024 x 572) -->
+            <button class="hotspot" data-key="calendar" aria-label="Calendario"
+                style="--x:381;--y:98;--w:54;--h:64">
+                <span class="tag">📅 El calendario</span>
+            </button>
+
+            <button class="hotspot" data-key="letter" aria-label="Carta"
+                style="--x:258;--y:128;--w:44;--h:50">
+                <span class="tag">✉️ La carta</span>
+            </button>
+
+            <button class="hotspot" data-key="music" aria-label="Rocola"
+                style="--x:256;--y:190;--w:70;--h:42">
+                <span class="tag">🎵 La rocola</span>
+            </button>
+
+            <button class="hotspot" data-key="moon" aria-label="Luna en la ventana"
+                style="--x:584;--y:66;--w:68;--h:86">
+                <span class="tag">🌙 La luna</span>
+            </button>
+
+            <p class="cafe-hint" id="cafeHint">Toca lo que brilla</p>
+
+        </div>
+
+        <!-- Canción (vive fuera de los paneles para que siga sonando al cerrarlos) -->
+        <audio id="song" src="assets/in-a-sentimental-mood.mp3" preload="none" loop></audio>
+
+        <!-- ===== CAPAS EMERGENTES ===== -->
+        <div class="overlay" id="overlay" hidden>
+
+            <button class="layer-close" id="layerClose" aria-label="Cerrar">✕</button>
+
+            <!-- 📅 CALENDARIO -->
+            <section class="panel" id="panel-calendar" hidden>
+                <div class="panel-grid">
+                    <figure class="sky">
+                        <!-- Pon aquí tu imagen: assets/estrellas.jpg -->
+                        <img id="skyImg" alt="Las estrellas la noche en que nos conocimos" hidden>
+                        <canvas id="skyFallback" width="240" height="180"></canvas>
+                        <figcaption>El cielo sobre nosotros · <span class="edit">Yopal</span></figcaption>
+                    </figure>
+                    <div class="panel-text">
+                        <p class="eyebrow">📅 <span class="edit">26 de Junio de 2026</span></p>
+                        <h2>La noche en que nos conocimos</h2>
+                        <p>Así estaban las estrellas esa noche, cada una en su lugar, como si supieran que algo estaba por empezar.</p>
+                        <p>Nadie planeó ese cielo, pero quedó escrito para nosotros.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 🎵 ROCOLA -->
+            <section class="panel" id="panel-music" hidden>
+                <div class="panel-grid">
+                    <div class="vinyl-wrap">
+                        <div class="vinyl"><span></span></div>
+                    </div>
+                    <div class="panel-text">
+                        <p class="eyebrow">🎵 Sonando en la rocola</p>
+                        <h2>In a Sentimental Mood</h2>
+                        <p class="artist">John Coltrane</p>
+                        <p>Esta canción lleva nuestro nombre.</p>
+                        <p>Quiero que todas nuestras noches suenen así: despacio, cálidas, contigo al lado.</p>
+
+                        <div class="player">
+                            <button class="play-btn" id="playBtn" aria-label="Reproducir">▶</button>
+                            <div class="song-bar" id="songBar"><div class="song-fill" id="songFill"></div></div>
+                            <span class="song-time" id="songTime">0:00</span>
+                        </div>
+                        <p class="song-missing" id="songMissing" hidden>
+                            Falta el archivo de audio. Guárdalo como <b>assets/in-a-sentimental-mood.mp3</b>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 🌙 LUNA -->
+            <section class="panel panel-moon" id="panel-moon" hidden>
+                <div class="moon-orb"></div>
+                <div class="panel-text center">
+                    <p class="eyebrow">🌙 Desde cualquier lugar</p>
+                    <h2>La misma luna</h2>
+                    <p>Hay noches en que la distancia pesa. Pero la luna es una sola, y esta noche nos cobija a los dos: la que tú miras es la que yo miro.</p>
+                    <p>Por eso creo que ningún kilómetro puede con lo nuestro. Cada vez que ella sube, me recuerda que seguimos bajo el mismo cielo, y que este amor sabe cruzar cualquier distancia.</p>
+                </div>
+            </section>
+
+            <!-- ✉️ CARTA -->
+            <section class="letter-layer" id="panel-letter" hidden>
+                <div class="envelope-wrap" id="envelope" role="button" tabindex="0" aria-label="Abrir la carta">
+                    <div class="env-back"></div>
+
+                    <div class="letter">
+                        <div class="letter-body">
+                            <p class="letter-date">20 de septiembre de 2026</p>
+                            <p>Mi amor,</p>
+                            <p>Qué curioso es cómo alguien puede llegar poco a poco y terminar ocupando tanto espacio en el corazón. Entre conversaciones, risas, noches compartidas y pequeños momentos, te has convertido en una de mis partes favoritas de los días.</p>
+                            <p>No sé qué páginas nos esperan todavía, pero sí sé que quiero seguir escribiéndolas contigo, con calma, con cariño y con la ilusión de que algún día podamos mirar atrás y sonreír por todo lo que construimos.</p>
+                            <p class="letter-sign">Siempre tuyo,<br>Michell</p>
+                        </div>
+
+                    </div>
+
+                    <div class="env-front"></div>
+                    <div class="env-flap"><span class="seal">♥</span></div>
+                </div>
+                <p class="letter-hint" id="letterHint">Toca el sobre para abrirlo</p>
+            </section>
+
+        </div>
+
+    </section>
+
+    <script src="cafe.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
